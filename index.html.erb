@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rainer Soundboard! THIS IS CAGE</title>
+  <script type="text/javascript" src="jquery.min.js"></script>
+</head>
+<body>
+  <% sound_file_names.each do |sound| %>
+    <% id = sound.gsub("sounds/", '').gsub(/\..+$/, '').gsub(/\W/, '') %>
+
+    <audio id="<%= id %>" preload="auto">
+      <source src="<%= sound %>" type="audio/mpeg"></source>
+      <source src="rainer_sounds.ogg" type="audio/ogg"></source>
+    </audio>
+
+    <% button_id = id + "-button" %>
+    <button id="<%= button_id %>" style="display: hidden" onclick="document.getElementById('<%= id %>').play()">Play Music</button>
+
+    <script type="text/javascript">
+      $('#<%= id %>').on('canplaythrough', function() {
+        console.log("Ok! Showing <%= button_id %>")
+        $('#<%= button_id %>').show();
+      });
+    </script>
+  <% end %>
+</body>
+</html>
