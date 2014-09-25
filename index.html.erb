@@ -26,24 +26,12 @@
       </div>
 
       <% sound_file_names.each do |sound| %>
-        <% id = sound.gsub("sounds/", '').gsub(/\..+$/, '').gsub(/\W/, '') %>
-
-        <audio id="<%= id %>" preload="auto">
+        <audio id="<%= sound_id(sound) %>" preload="auto">
           <source src="<%= sound %>" type="audio/mpeg"></source>
           <source src="rainer_sounds.ogg" type="audio/ogg"></source>
         </audio>
 
-        <% button_id = id + "-button" %>
-        <button id="<%= button_id %>" style="display: hidden; margin-top: 8px" onclick="document.getElementById('<%= id %>').play()" type="button" class="btn btn-lg btn-info">Hear Rainer</button>
-
-        <script type="text/javascript">
-          $(document).ready(function() {
-            $('#<%= id %>').on('canplaythrough', function() {
-              console.log("Ok! Showing <%= button_id %>")
-              $('#<%= button_id %>').show();
-            });
-          });
-        </script>
+        <button id="<%= button_id(sound_id(sound)) %>" style="display: hidden; margin-top: 8px" onclick="document.getElementById('<%= sound_id(sound) %>').play()" type="button" class="btn btn-lg btn-info">Hear Rainer</button>
       <% end %>
     </div>
 
@@ -51,5 +39,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        <% sound_ids.each do |sound_id| %>
+          $('#<%= sound_id %>').on('canplaythrough', function() {
+            console.log("Ok! Showing <%= button_id(sound_id) %>")
+            $('#<%= button_id(sound_id) %>').show();
+          });
+        <% end %>
+      });
+    </script>
   </body>
 </html>
