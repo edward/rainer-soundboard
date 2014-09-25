@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Rainer Soundboard! THIS IS CAGE</title>
-  <script type="text/javascript" src="jquery.min.js"></script>
-</head>
-<body>
-  <% sound_file_names.each do |sound| %>
-    <% id = sound.gsub("sounds/", '').gsub(/\..+$/, '').gsub(/\W/, '') %>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rainer Soundboard! THIS IS CAGE</title>
+    <script type="text/javascript" src="jquery.min.js"></script>
 
-    <audio id="<%= id %>" preload="auto">
-      <source src="<%= sound %>" type="audio/mpeg"></source>
-      <source src="rainer_sounds.ogg" type="audio/ogg"></source>
-    </audio>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <% button_id = id + "-button" %>
-    <button id="<%= button_id %>" style="display: hidden" onclick="document.getElementById('<%= id %>').play()">Play Music</button>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="background-image: url('rainer.jpg');">
+    <div class="container">
 
-    <script type="text/javascript">
-      $('#<%= id %>').on('canplaythrough', function() {
-        console.log("Ok! Showing <%= button_id %>")
-        $('#<%= button_id %>').show();
-      });
-    </script>
-  <% end %>
-</body>
+      <div class="page-header">
+        <h1>Listen to Rainer</h1>
+        <p class="lead">The man.</p>
+      </div>
+
+      <% sound_file_names.each do |sound| %>
+        <% id = sound.gsub("sounds/", '').gsub(/\..+$/, '').gsub(/\W/, '') %>
+
+        <audio id="<%= id %>" preload="auto">
+          <source src="<%= sound %>" type="audio/mpeg"></source>
+          <source src="rainer_sounds.ogg" type="audio/ogg"></source>
+        </audio>
+
+        <% button_id = id + "-button" %>
+        <button id="<%= button_id %>" style="display: hidden; margin-top: 8px" onclick="document.getElementById('<%= id %>').play()" type="button" class="btn btn-lg btn-info">Hear Rainer</button>
+
+        <script type="text/javascript">
+          $('#<%= id %>').on('canplaythrough', function() {
+            console.log("Ok! Showing <%= button_id %>")
+            $('#<%= button_id %>').show();
+          });
+        </script>
+      <% end %>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
