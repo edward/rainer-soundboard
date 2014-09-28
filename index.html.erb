@@ -31,7 +31,7 @@
           <source src="rainer_sounds.ogg" type="audio/ogg"></source>
         </audio>
 
-        <button id="<%= button_id(sound_id(sound)) %>" style="display: hidden; margin-top: 8px" onclick="document.getElementById('<%= sound_id(sound) %>').play()" type="button" class="btn btn-lg btn-info">Hear Rainer</button>
+        <button id="<%= button_id(sound_id(sound)) %>" style="display: hidden; margin-top: 8px" type="button" class="btn btn-lg btn-info">Hear Rainer</button>
       <% end %>
     </div>
 
@@ -46,6 +46,11 @@
           $('#<%= sound_id %>').on('canplaythrough', function() {
             console.log("Ok! Showing <%= button_id(sound_id) %>")
             $('#<%= button_id(sound_id) %>').show();
+          });
+
+          $('#<%= button_id(sound_id) %>').click(function() {
+            console.log("Attempting to play <%= sound_id %>")
+            $('#<%= sound_id %>')[0].play();
           });
         <% end %>
       });
